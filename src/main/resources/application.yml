@@ -1,0 +1,58 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: long-wechat
+  datasource:
+    name: druidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://${MYSQL_HOST:47.106.157.57}:${MYSQL_PORT:3306}/kvf_admin?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+      username: ${MYSQL_USERNAME:root}
+      password: ${MYSQL_PASSWORD:Long@1126}
+      filters: stat,wall,config
+      max-active: 100
+      initial-size: 1
+      max-wait: 60000
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 50
+      max-pool-prepared-statement-per-connection-size: 20
+      web-stat-filter:
+        # 添加过滤规则
+        url-pattern: /*
+        # 忽略过滤格式
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        # 设置ip白名单
+        allow: 127.0.0.1
+        # 设置ip黑名单，优先级高于白名单
+        deny:
+        # 设置控制台管理用户
+        #        login-username: root
+        #        login-password: root
+        # 是否可以重置数据
+        reset-enable: false
+        # 开启druid监控页面
+        enabled: true
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    dao: debug
+    org:
+      mybatis: debug
+wechat:
+  subscription:
+    url: http://wechat.zhulumir2.com
+    token: zhulumir2
+    appId: wxc0fec701c3422e39
+    appSecret: 35db8a2da2f570b1372cb796e680462b
+#    appId: wx1491c8ebb0be05d9
+#    appSecret: 2c7b6739898b7855934eb249137a1ae2
